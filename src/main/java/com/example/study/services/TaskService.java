@@ -4,10 +4,13 @@ import com.example.study.models.Task;
 import com.example.study.models.User;
 import com.example.study.repositories.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
+@Service
 public class TaskService {
 
     @Autowired
@@ -23,6 +26,11 @@ public class TaskService {
         ));
     }
 
+    public List<Task> findAllByUserId(Integer id){
+        List<Task> tasks = this.taskRepository.findByUser_Id(id);
+        return tasks;
+    }
+
     @Transactional
     public Task create(Task task){
         User user = this.userService.findById(task.getUser().getId());
@@ -35,7 +43,7 @@ public class TaskService {
     @Transactional
     public Task update(Task task){
         Task newTask = findById(task.getId());
-        newTask.setDesciption(task.getDesciption());
+        newTask.setDescription(task.getDescription());
         return this.taskRepository.save(newTask);
     }
 

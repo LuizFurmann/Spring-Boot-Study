@@ -3,6 +3,7 @@ package com.example.study.models;
 import io.micrometer.common.lang.NonNull;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.util.Objects;
 
@@ -21,19 +22,14 @@ public class Task {
     private User user;
 
     @Column(name = "description", length = 255, nullable = false)
-    @NonNull
-    @NotEmpty
+    @NotNull
     @Size(min = 1, max = 255)
-    private String desciption;
+    private String description;
 
-
-    public Task() {
-    }
-
-    public Task(Integer id, User user, String desciption) {
+    public Task(Integer id, User user, String description) {
         this.id = id;
         this.user = user;
-        this.desciption = desciption;
+        this.description = description;
     }
 
     public Integer getId() {
@@ -52,12 +48,12 @@ public class Task {
         this.user = user;
     }
 
-    public String getDesciption() {
-        return this.desciption;
+    public String getDescription() {
+        return this.description;
     }
 
-    public void setDesciption(String desciption) {
-        this.desciption = desciption;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Task id(Integer id) {
@@ -70,8 +66,8 @@ public class Task {
         return this;
     }
 
-    public Task desciption(String desciption) {
-        setDesciption(desciption);
+    public Task description(String description) {
+        setDescription(description);
         return this;
     }
 
@@ -95,7 +91,7 @@ public class Task {
                 return false;
         }
 
-        return Objects.equals(id, task.id) && Objects.equals(user, task.user) && Objects.equals(desciption, task.desciption);
+        return Objects.equals(id, task.id) && Objects.equals(user, task.user) && Objects.equals(description, task.description);
     }
 
     @Override
@@ -111,7 +107,7 @@ public class Task {
         return "{" +
             " id='" + getId() + "'" +
             ", user='" + getUser() + "'" +
-            ", desciption='" + getDesciption() + "'" +
+            ", description='" + getDescription() + "'" +
             "}";
     }
     
