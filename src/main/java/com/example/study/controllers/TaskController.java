@@ -2,6 +2,7 @@ package com.example.study.controllers;
 
 import com.example.study.models.Task;
 import com.example.study.services.TaskService;
+import com.example.study.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/task")
@@ -19,10 +21,20 @@ public class TaskController {
     @Autowired
     private TaskService taskService;
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping("/{id}")
     public ResponseEntity<Task> findById(@PathVariable Integer id){
         Task task = this.taskService.findById(id);
         return ResponseEntity.ok(task);
+    }
+
+    @GetMapping("/user/{id}")
+    public ResponseEntity<List<Task>> findAllByTaskUserId(@PathVariable Integer id){
+        this.userService.findById(id);
+        List<Task> tasks = this.taskService.findAllByUserId(id);
+        return ResponseEntity.ok().body(tasks);
     }
 
     @PostMapping
