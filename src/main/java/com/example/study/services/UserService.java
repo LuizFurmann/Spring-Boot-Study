@@ -15,8 +15,6 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private TaskRepository taskRepository;
 
     public User findById(Integer id){
         Optional<User> user = this.userRepository.findById(id);
